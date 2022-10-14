@@ -16,6 +16,9 @@ struct node {
 // Head of the List
 node *head = NULL;
 
+// Head of the List
+node *end = NULL;
+
 // prototypes
 int insert ( int );
 int insertAtStart ( int );
@@ -33,20 +36,6 @@ void sllDelete ();
 
 // Main_Function
 int main() {
-
-	SLL();
-
-//	insert(33);
-//	insert(34);
-//	insert(33);
-//	insert(35);
-//	
-//	deletion(34);
-//	
-//	reverse();
-//	display();
-	
-//	search(35);
 
 	return 0;
 }
@@ -169,20 +158,16 @@ int insert ( int data ){
 	if( head == NULL ){
 	
 		head = obj;
+		end = obj;
 	}
 	else{
 		
-		node *temp;
-		temp = head;
-		
-		while( temp->next != NULL ){
-			
-			temp = temp->next;
-		}
-		
-		temp->next = obj;
-		delete temp;
+		end->next = obj;
+		end = obj;
 	}
+	end->next = head;
+	
+	return obj->data;
 }
 
 // 1.2 Insert at the start
@@ -194,16 +179,12 @@ int insertAtStart ( int data ){
 	if( head == NULL ){
 	
 		head = obj;
+		end = obj;
 	}
 	else{
-		
-		node *temp;
-		temp = head;
-		
-		obj->next = temp;
+
+		obj->next = head;
 		head = obj;
-		
-		delete (temp);
 	}
 	
 	return obj->data;
@@ -218,20 +199,16 @@ int insertAtEnd ( int data ){
 	if( head == NULL ){
 	
 		head = obj;
+		end = obj;
 	}
 	else{
 		
-		node *temp;
-		temp = head;
-		
-		while( temp->next != NULL ){
-			
-			temp = temp->next;
-		}
-		
-		temp->next = obj;
-		delete temp;
+		end->next = obj;
+		end = obj;
 	}
+	end->next = head;
+	
+	return obj->data;
 }
 
 // 2. Delete
@@ -240,7 +217,7 @@ bool deletion ( int key ){
 	node *temp;
 	temp = head;
 	
-	while( temp->next != NULL ){
+	while( temp != end ){
 		
 		if ( temp->next->data == key){
 			break;
@@ -293,7 +270,7 @@ bool deleteFromEnd (){
 	node *end, *prev;
 	end = head;
 	
-	while( end->next != NULL ){
+	while( temp != end ){
 	
 		end = end->next;
 		prev = end;
@@ -306,13 +283,13 @@ bool deleteFromEnd (){
 	}
 }
 
-// 3. Search and Update
+// 3. Search
 void update ( int prevData, int newData ){
 	
 	node *temp;
 	temp = head;
 	
-	while( temp->next != NULL ){
+	while( temp != end ){
 		
 		if ( temp->data == prevData){
 			break;
@@ -333,13 +310,13 @@ void update ( int prevData, int newData ){
 	delete (temp);
 }
 
-// 5. Display
+// 4. Display
 void display (){
 	
 	node *temp;
 	temp = head;
 
-	while( temp != NULL ){
+	while( temp != end ){
 		
 		cout<<temp->data<<endl;
 		temp = temp->next;
@@ -349,16 +326,12 @@ void display (){
 }
 
 void reverse(){
-
-        node *current = head; 
-        node *prev = NULL, *next = NULL; 
-  
-        while (current != NULL){ 
-            
-            next = current->next; 
-            current->next = prev;  
-            prev = current; 
-            current = next; 
-        } 
-        head = prev;
+	
+	node *temp;
+	temp = head;
+	
+	head = end;
+	end = temp;
+	
+	delete (temp);
 }

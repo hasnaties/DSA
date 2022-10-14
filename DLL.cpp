@@ -35,9 +35,9 @@ class Doubly_Linked_List
 	void reverse(node **head_ref);
 };
 
-void SLL ();
-void sllInsertion ();
-void sllDelete ();
+void DLL ();
+void DllInsertion ();
+void DllDelete ();
 
 // Main_Function
 int main() {
@@ -195,26 +195,24 @@ void Doubly_Linked_List :: insertE(int d)
 // 2. Delete
 void Doubly_Linked_List :: deletion(node *n)
 {	
-	// if node to be deleted is first node of list
+
 	if(n->prev == NULL)
 	{
-		head = n->next; //the next node will be head of list
+		head = n->next;
 		head->prev = NULL;
 	}
-	// if node to be deleted is last node of list
+
 	else if(n->next == NULL)
 	{
-		end = n->prev;   // the previous node will be last of list
+		end = n->prev;
 		end->next = NULL;
 	}
 	else
 	{
-		//previous node's next will point to current node's next
 		n->prev->next = n->next;
-		//next node's prev will point to current node's prev
 		n->next->prev = n->prev;
 	}
-	//delete node
+	
 	delete(n);			
 }
 
@@ -263,9 +261,7 @@ void Doubly_Linked_List :: reverse(node **head_ref)
 {  
     node *temp = NULL;  
     node *current = *head_ref;  
-      
-    /* swap next and prev for all nodes of  
-    doubly linked list */
+
     while (current != NULL)  
     {  
         temp = current->prev;  
@@ -273,9 +269,7 @@ void Doubly_Linked_List :: reverse(node **head_ref)
         current->next = temp;              
         current = current->prev;  
     }  
-      
-    /* Before changing head, check for the cases like empty  
-        list and list with only one node */
+
     if(temp != NULL )  
         *head_ref = temp->prev;  
 }  
