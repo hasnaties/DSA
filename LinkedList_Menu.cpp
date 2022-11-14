@@ -16,7 +16,7 @@ struct node {
 // Head of the List
 node *head = NULL;
 
-// prototypes
+// Prototypes
 int insert ( int );
 int insertAtStart ( int );
 int insertAtEnd ( int );
