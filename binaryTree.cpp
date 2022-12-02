@@ -9,31 +9,86 @@ using std::endl;
 // node structure
 struct node {
 
-	node *right;
 	int data;
-	node *left;
+	struct node *right;
+	struct node *left;
 };
 
 // root of the tree
-node *root = NULL;
+struct node *root = NULL;
 
-// Proto-types
-int insert ( int );
+
+// Functions
+
+// -- Insert --
+void insert ( int data ){
+
+	struct node *tempNode = (struct node*) malloc(sizeof(struct node));
+	struct node *current;
+   	struct node *parent;
+
+	tempNode->data = data;
+	tempNode->left = NULL;
+	tempNode->right = NULL;
+	
+	if(root == NULL){
+		
+		root = tempNode;
+//		cout<<"root:"<<root->data;
+	}
+	else{
+	
+   		current = root;
+		parent = NULL;
+   		
+		while(1){
+			
+			parent = current;
+			
+			if( data < parent->data ){
+				
+				current = parent->left;
+				if( current == NULL){
+					
+					parent->left = tempNode;
+//					cout<<"left:"<<parent->left->data;
+					return;
+				}
+			}
+			else{
+			
+				current = parent->right;
+				
+				if( current == NULL){
+					
+					parent->right = tempNode;
+//					cout<<"right:"<<parent->right->data;
+					return;
+				}
+			}
+		}
+	}
+}
+
+// -- InOrder Display --
+void inOrder (struct node *root){
+
+	if( root != NULL){
+		
+		cout<<"->"<<root->data;
+		inOrder(root->left);
+		inOrder(root->right);
+	}
+}
 
 // Main-Function
 int main(){
 	
-	return 0;
-}
+	insert(2);
+	insert(3);
+	insert(1);
 
-// Definations
-int insert ( int data ){
+	inOrder(root);
 	
-	if(root == NULL){
-		
-		root->right = root->left = NULL;
-		return root->data = data;
-	}
-	
-	
+	return 0;
 }
